@@ -36,10 +36,26 @@ public class LibraryServiceTest {
         String userId = "001";
         String bookId = "001";
 
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius", true);
+
         Mockito.when(bookRepository.findById(bookId))
-                .thenReturn(new Book(bookId, "Meditations", "Marcus Aurelius", true));
+                .thenReturn(stubBook);
 
         assertThrows(LoanException.class, () -> libraryService.borrowBook(userId, bookId));
+    }
+
+    @Test
+    void testBorrowNonExistingUser() {
+        String userId = "001";
+        String bookId = "001";
+
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius");
+
+        Mockito.when(bookRepository.findById(bookId))
+                .thenReturn(stubBook);
+
+        assertThrows(IllegalArgumentException.class, () -> libraryService.borrowBook(userId, bookId));
+
     }
 
 }
