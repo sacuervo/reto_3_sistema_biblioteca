@@ -26,6 +26,19 @@ public class LibraryServiceTest {
     }
 
     @Test
+    void testAddBook() {
+
+        String bookId = "001";
+        String bookTitle = "Meditations";
+        String bookAuthor = "Marcus Aurelius";
+
+        libraryService.addBook(bookId, bookTitle, bookAuthor);
+
+        Mockito.verify(bookRepository, Mockito.atLeastOnce()).saveBook(Mockito.any(Book.class));
+        Mockito.verify(bookRepository, Mockito.atMostOnce()).saveBook(Mockito.any(Book.class));
+    }
+
+    @Test
     void testAddUser() {
 
         String userId = "1234";
