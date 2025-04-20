@@ -24,11 +24,31 @@ public class LibraryServiceTest {
     }
 
     @Test
+    void testBorrowBookSuccessfully() throws LoanException {
+        String userId = "1234";
+        String bookId = "5678";
+
+        libraryService.addUser(userId, "Santiago");
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius", false);
+
+        Mockito.when(bookRepository.findById(bookId))
+                .thenReturn(stubBook);
+
+        libraryService.borrowBook(userId, bookId);
+
+        Mockito.verify(bookRepository, Mockito.atLeastOnce()).findById(bookId);
+        Mockito.verify(loanRepository).save(Mockito.any(Loan.class));
+
+    }
+
+    @Test
     void testBorrowNonExistingBook() {
         String userId = "1234";
         String bookId = "5678";
 
         assertThrows(NoSuchElementException.class, () -> libraryService.borrowBook(userId, bookId));
+
+        Mockito.verify(bookRepository).findById(bookId);
     }
 
     @Test
@@ -42,10 +62,13 @@ public class LibraryServiceTest {
                 .thenReturn(stubBook);
 
         assertThrows(LoanException.class, () -> libraryService.borrowBook(userId, bookId));
+
+        Mockito.verify(bookRepository, Mockito.atLeastOnce()).findById(bookId);
+        assert stubBook.isBorrowed();
     }
 
     @Test
-    void testBorrowNonExistingUser() {
+    void testBorrowToNonExistingUser() {
         String userId = "001";
         String bookId = "001";
 
@@ -55,6 +78,9 @@ public class LibraryServiceTest {
                 .thenReturn(stubBook);
 
         assertThrows(IllegalArgumentException.class, () -> libraryService.borrowBook(userId, bookId));
+
+        Mockito.verify(bookRepository, Mockito.atLeastOnce()).findById(bookId);
+        assert !stubBook.isBorrowed();
 
     }
 
