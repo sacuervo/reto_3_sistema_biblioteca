@@ -115,9 +115,8 @@ public class LibraryService {
         }
 
         // Check if book loan matches user
-
         for (Loan loan : loanRepository.getLoans()) {
-            if (loan.getBook().equals(loanBook)) {
+            if (loan.getBook().equals(loanBook) && loan.getUser().getId().equalsIgnoreCase(userId)) {
                 return true;
             }
         }
