@@ -28,7 +28,6 @@ public class LibraryService {
         return bookRepository.findById(id);
     }
 
-    // TODO: Test
     public void addUser(String id, String nombre) {
         users.add(new User(id, nombre));
     }
@@ -36,11 +35,17 @@ public class LibraryService {
     public void borrowBook(String userId, String bookId) throws LoanException {
 
         // Verify book existence - NoSuchElementException
-        Book loanBook = getBookById(bookId);
+        Book loanBook = null;
+
+        try {
+            loanBook = getBookById(bookId);
+        } catch (NoSuchElementException ex) {
+            throw new NoSuchElementException(String.format("Error loaning book: [%s]", ex.getMessage()));
+        }
 
         // Verify book availability - LoanException
         if (bookRepository.findById(bookId).isBorrowed()) {
-            throw new LoanException(String.format("Book with ID '%s' is already taken", bookId));
+            throw new LoanException(String.format("Error loaning book: [Book with ID '%s' is already taken]", bookId));
         }
 
         // Verify user existence - IllegalArgumentException
@@ -53,21 +58,68 @@ public class LibraryService {
         }
 
         if (loanUser == null) {
-            throw new IllegalArgumentException(String.format("User with ID '%s' not found", userId));
+            throw new IllegalArgumentException(
+                    String.format("Error loaning book: [User with ID '%s' not found]", userId));
         }
 
         loanRepository.save(new Loan(loanUser, loanBook));
 
     }
 
-    // FIXME: Implement
+    // TODO: Test
     public List<Loan> getLoansByUserId(String userId) {
-        throw new Error("Not yet implemented");
+
+        // Return list
+        List<Loan> loanList = new ArrayList<>();
+
+        // Verify user existence
+        User loanUser = null;
+
+        for (User user : users) {
+            if (user.getId().equalsIgnoreCase(userId.trim())) {
+                loanUser = user;
+            }
+        }
+
+        if (loanUser == null) {
+            throw new IllegalArgumentException(String.format("User with ID '%s' not found", userId));
+        }
+
+        // Loop through loan list
+        for (Loan loan : loanRepository.getLoans()) {
+            if (loan.getUser().equals(loanUser)) {
+                loanList.add(loan);
+            }
+        }
+
+        if (loanList.isEmpty()) {
+            throw new NoSuchElementException(String.format("User with ID '%s' has no loans", userId));
+        }
+
+        return loanList;
+
     }
 
-    // FIXME: Implement
-    public boolean isBookLoanedToUser(String userId, String bookId) {
-        throw new Error("Not yet implemented");
+    // TODO: Test
+    public boolean isBookLoanedToUser(String userId, String bookId) throws LoanException {
+
+        // Check if book exists and if it's loaned
+        Book loanBook = getBookById(bookId);
+
+        if (!loanBook.isBorrowed()) {
+            throw new LoanException(String.format("Book with ID '%s' hasn't been loaned", bookId));
+        }
+
+        // Check if book loan matches user
+
+        for (Loan loan : loanRepository.getLoans()) {
+            if (loan.getBook().equals(loanBook)) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
     public List<User> getUsers() {
