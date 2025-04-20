@@ -2,6 +2,8 @@ package me.santiagocuervo;
 
 import java.util.NoSuchElementException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,29 @@ public class LibraryServiceTest {
     void setup() {
         MockitoAnnotations.openMocks(this);
         libraryService = new LibraryService(bookRepository, loanRepository);
+    }
+
+    @Test
+    void testAddUser() {
+
+        String userId = "1234";
+        String userName = "Santiago";
+
+        libraryService.addUser(userId, userName);
+
+        // Assert list first element isn't null
+        assertNotNull(libraryService.getUsers().get(0));
+
+        User user = libraryService.getUsers().get(0);
+
+        // Assert correct ID
+        assertEquals(userId, user.getId());
+
+        // Assert correct name
+        assertEquals(userName, user.getNombre());
+
+        // Assert correct user list length
+        assertEquals(1, libraryService.getUsers().size());
     }
 
     @Test
