@@ -66,7 +66,6 @@ public class LibraryService {
 
     }
 
-    // TODO: Test
     public List<Loan> getLoansByUserId(String userId) throws LoanException {
 
         // Return list
