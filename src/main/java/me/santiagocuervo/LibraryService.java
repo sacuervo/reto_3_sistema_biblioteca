@@ -69,13 +69,13 @@ public class LibraryService {
     // TODO: Test
     public List<Loan> getLoansByUserId(String userId) throws LoanException {
 
+        // Return list
+        List<Loan> loanList = new ArrayList<>();
+
         // Finish execution if there are no loans yet
         if (loanRepository.getLoans().isEmpty()) {
             throw new LoanException("No loans have been added yet");
         }
-
-        // Return list
-        List<Loan> loanList = new ArrayList<>();
 
         // Verify user existence
         User loanUser = null;
