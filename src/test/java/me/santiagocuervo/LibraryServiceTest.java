@@ -264,10 +264,14 @@ public class LibraryServiceTest {
         Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
-    // TODO: Implement
-    @Disabled
     @Test
     void testIsBookLoanedToUser_NonExistingBook() {
+        String userId = "001";
+        String bookId = "001";
+
+        assertThrows(NoSuchElementException.class, () -> libraryService.isBookLoanedToUser(userId, bookId));
+
+        Mockito.verify(bookRepository, atLeastOnce()).findById(bookId);
     }
 
     // TODO: Implement
