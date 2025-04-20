@@ -21,6 +21,10 @@ public class LibraryService {
     }
 
     public Book getBookById(String id) {
+        if (bookRepository.findById(id) == null) {
+            throw new NoSuchElementException(String.format("Book with ID '%s' not found", id));
+        }
+
         return bookRepository.findById(id);
     }
 
@@ -31,9 +35,7 @@ public class LibraryService {
     public void borrowBook(String userId, String bookId) throws LoanException {
 
         // Verify book existence - NoSuchElementException
-        if (bookRepository.findById(bookId) == null) {
-            throw new NoSuchElementException(String.format("Book with ID '%s' not found", bookId));
-        }
+        Book loanBook = getBookById(bookId);
 
         // Verify book availability - LoanException
         if (bookRepository.findById(bookId).isBorrowed()) {
@@ -52,9 +54,6 @@ public class LibraryService {
         if (loanUser == null) {
             throw new IllegalArgumentException(String.format("User with ID '%s' not found", userId));
         }
-
-        // Loan book
-        Book loanBook = bookRepository.findById(bookId);
 
         loanRepository.save(new Loan(loanUser, loanBook));
 
