@@ -1,8 +1,11 @@
 package me.santiagocuervo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -120,6 +123,67 @@ public class LibraryServiceTest {
         Mockito.verify(bookRepository, Mockito.atLeastOnce()).findById(bookId);
         assert !stubBook.isBorrowed();
 
+    }
+
+    @Test
+    void testGetLoansByUserId_Successfully() throws LoanException {
+
+        String userId = "001";
+        String userName = "Santiago";
+        String bookId = "001";
+        String bookName = "Meditations";
+        String bookAuthor = "Marcus Aurelius";
+
+        // Create user in libraryService list
+        libraryService.addUser(userId, userName);
+
+        // Create stubs
+        List<Loan> stubLoans = new ArrayList<>();
+        User stubUser = new User(userId, userName);
+        Book stubBook = new Book(bookId, bookName, bookAuthor);
+
+        Loan stubLoan = new Loan(stubUser, stubBook);
+        stubLoans.add(stubLoan);
+
+        Mockito.when(loanRepository.getLoans()).thenReturn(stubLoans);
+
+        List<Loan> userLoans = libraryService.getLoansByUserId(userId);
+
+        // Assert not empty userLoans
+        assertNotEquals(0, userLoans.size());
+
+        // Assert not null first element
+        assertNotNull(userLoans.get(0));
+
+        // Assert loan book matches stub book
+        assertEquals(stubBook, userLoans.get(0).getBook());
+
+        // Assert loan user matches stub user
+        assertEquals(stubUser, userLoans.get(0).getUser());
+
+        // Assert userLoans length is 1
+        assertEquals(1, userLoans.size());
+    }
+
+    // TODO: Implement
+    @Test
+    void testGetLoansByUserId_WhenNoLoansExist() {
+    }
+
+    // TODO: Implement
+    @Test
+    void testGetLoansByUserId_ForUnexistingUserId() {
+
+    }
+
+    // TODO: Implement
+    @Test
+    void testGetLoansByUserId_ForNonExistingLoansForExistingUserId() {
+    }
+
+    // TODO: Implement
+    @Test
+    void testGetLoansByUserId_ForExistingUserId() {
     }
 
 }
