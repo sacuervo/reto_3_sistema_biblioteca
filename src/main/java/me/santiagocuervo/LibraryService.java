@@ -28,6 +28,7 @@ public class LibraryService {
         return bookRepository.findById(id);
     }
 
+    // TODO: Test
     public void addUser(String id, String nombre) {
         users.add(new User(id, nombre));
     }
@@ -59,12 +60,18 @@ public class LibraryService {
 
     }
 
+    // FIXME: Implement
     public List<Loan> getLoansByUserId(String userId) {
         throw new Error("Not yet implemented");
     }
 
+    // FIXME: Implement
     public boolean isBookLoanedToUser(String userId, String bookId) {
         throw new Error("Not yet implemented");
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
 }
