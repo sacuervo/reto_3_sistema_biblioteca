@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.atLeastOnce;
 import org.mockito.MockitoAnnotations;
 
 public class LibraryServiceTest {
@@ -165,9 +166,16 @@ public class LibraryServiceTest {
         assertEquals(1, userLoans.size());
     }
 
-    // TODO: Implement
     @Test
     void testGetLoansByUserId_WhenNoLoansExist() {
+
+        String userId = "001";
+
+        Mockito.when(loanRepository.getLoans()).thenReturn(new ArrayList<Loan>());
+
+        assertThrows(LoanException.class, () -> libraryService.getLoansByUserId(userId));
+
+        Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
     // TODO: Implement
