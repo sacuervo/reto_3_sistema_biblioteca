@@ -28,56 +28,19 @@ public class LibraryService {
         users.add(new User(id, nombre));
     }
 
-    public void borrowBook(String userId, String bookId) {
+    public void borrowBook(String userId, String bookId) throws LoanException {
 
-        try {
-            // Verify book existence - NoSuchElementException
-            boolean doesBookExist = doesBookExist(bookId);
-
-            // Verify book availability - LoanException
-            verifyBookAvailability(bookId);
-
-            // Verify user existence - IllegalArgumentException
-            User loanUser = getUserById(userId);
-
-            Book loanBook = getBookById(bookId);
-
-            loanRepository.save(new Loan(loanUser, loanBook));
-        } catch (NoSuchElementException | IllegalArgumentException | LoanException ex) {
-
-            System.err.println(String.format("Error loaning book: [%s]", ex.getMessage()));
-
-        }
-    }
-
-    public List<Loan> getLoansByUserId(String userId) {
-        throw new Error("Not yet implemented");
-    }
-
-    public boolean isBookLoanedToUser(String userId, String bookId) {
-        throw new Error("Not yet implemented");
-    }
-
-    public boolean doesBookExist(String bookId) {
+        // Verify book existence - NoSuchElementException
         if (bookRepository.findById(bookId) == null) {
-            throw new NoSuchElementException(String.format("Book with ID 's' not found", bookId));
+            throw new NoSuchElementException(String.format("Book with ID '%s' not found", bookId));
         }
 
-        return true;
-    }
-
-    public void verifyBookAvailability(String bookId) throws LoanException { // Método auxiliar creado para evitar
-                                                                             // lanzar excepción en el
-        // método
-        // principal
-
-        if (bookRepository.findById(bookId).isBorrowed() == false) {
+        // Verify book availability - LoanException
+        if (bookRepository.findById(bookId).isBorrowed()) {
             throw new LoanException(String.format("Book with ID '%s' is already taken", bookId));
         }
 
-    }
-
-    public User getUserById(String userId) {
+        // Verify user existence - IllegalArgumentException
         User loanUser = null;
 
         for (User user : users) {
@@ -90,7 +53,19 @@ public class LibraryService {
             throw new IllegalArgumentException(String.format("User with ID '%s' not found", userId));
         }
 
-        return loanUser;
+        // Loan book
+        Book loanBook = bookRepository.findById(bookId);
+
+        loanRepository.save(new Loan(loanUser, loanBook));
+
+    }
+
+    public List<Loan> getLoansByUserId(String userId) {
+        throw new Error("Not yet implemented");
+    }
+
+    public boolean isBookLoanedToUser(String userId, String bookId) {
+        throw new Error("Not yet implemented");
     }
 
 }
