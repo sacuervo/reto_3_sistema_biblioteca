@@ -67,7 +67,12 @@ public class LibraryService {
     }
 
     // TODO: Test
-    public List<Loan> getLoansByUserId(String userId) {
+    public List<Loan> getLoansByUserId(String userId) throws LoanException {
+
+        // Finish execution if there are no loans yet
+        if (loanRepository.getLoans().isEmpty()) {
+            throw new LoanException("No loans have been added yet");
+        }
 
         // Return list
         List<Loan> loanList = new ArrayList<>();
@@ -87,7 +92,7 @@ public class LibraryService {
 
         // Loop through loan list
         for (Loan loan : loanRepository.getLoans()) {
-            if (loan.getUser().equals(loanUser)) {
+            if (loan.getUser().getId().equals(userId)) {
                 loanList.add(loan);
             }
         }
