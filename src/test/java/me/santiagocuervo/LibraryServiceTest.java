@@ -274,10 +274,23 @@ public class LibraryServiceTest {
         Mockito.verify(bookRepository, atLeastOnce()).findById(bookId);
     }
 
-    // TODO: Implement
-    @Disabled
     @Test
     void testIsBookLoanedToUser_NonLoanedBook() {
+        String userId = "001";
+        String bookId = "001";
+
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius");
+        User stubUser = new User(bookId, "Santiago");
+        Loan stubLoan = new Loan(stubUser, stubBook);
+
+        List<Loan> stubLoanList = new ArrayList<>();
+        stubLoanList.add(stubLoan);
+
+        when(loanRepository.getLoans()).thenReturn(stubLoanList);
+
+        when(bookRepository.findById(bookId)).thenReturn(stubBook);
+
+        assertThrows(LoanException.class, () -> libraryService.isBookLoanedToUser(userId, bookId));
     }
 
     // TODO: Implement
