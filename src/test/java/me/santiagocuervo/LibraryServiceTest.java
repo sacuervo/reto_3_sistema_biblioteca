@@ -181,8 +181,6 @@ public class LibraryServiceTest {
         Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
-    // TODO: Implement
-    // @Disabled
     @Test
     void testGetLoansByUserId_ForUnexistingUserId() {
 
@@ -213,9 +211,37 @@ public class LibraryServiceTest {
     }
 
     // TODO: Implement
-    @Disabled
+    // @Disabled
     @Test
-    void testGetLoansByUserId_ForNonExistingLoansForExistingUserId() {
+    void testGetLoansByUserId_ForNonExistingLoansForExistingUserId() throws LoanException {
+
+        String userId = "001";
+        String userName = "Santiago";
+
+        String bookId = "001";
+        String bookName = "Meditations";
+        String bookAuthor = "Marcus Aurelius";
+
+        String userWithNoLoansId = "002";
+        String userWithNoLoansName = "Andrés";
+
+        // Create user in libraryService list
+        libraryService.addUser(userId, userName);
+        libraryService.addUser(userWithNoLoansId, userWithNoLoansName);
+
+        // Create stubs
+        List<Loan> stubLoans = new ArrayList<>();
+        User stubUser = new User(userId, userName);
+        Book stubBook = new Book(bookId, bookName, bookAuthor);
+
+        Loan stubLoan = new Loan(stubUser, stubBook);
+        stubLoans.add(stubLoan);
+
+        when(loanRepository.getLoans()).thenReturn(stubLoans);
+
+        assertThrows(NoSuchElementException.class, () -> libraryService.getLoansByUserId(userWithNoLoansId));
+
+        Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
     // TODO: Implement
