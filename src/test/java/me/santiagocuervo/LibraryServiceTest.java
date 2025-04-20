@@ -210,8 +210,6 @@ public class LibraryServiceTest {
         Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
-    // TODO: Implement
-    // @Disabled
     @Test
     void testGetLoansByUserId_ForNonExistingLoansForExistingUserId() throws LoanException {
 
@@ -244,10 +242,43 @@ public class LibraryServiceTest {
         Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
+    @Test
+    void testIsBookLoanedToUserSuccessfully() throws LoanException {
+
+        String userId = "001";
+        String bookId = "001";
+
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius", true);
+        User stubUser = new User(bookId, "Santiago");
+        Loan stubLoan = new Loan(stubUser, stubBook);
+
+        List<Loan> stubLoanList = new ArrayList<>();
+        stubLoanList.add(stubLoan);
+
+        when(loanRepository.getLoans()).thenReturn(stubLoanList);
+
+        when(bookRepository.findById(bookId)).thenReturn(stubBook);
+
+        assertEquals(true, libraryService.isBookLoanedToUser(userId, bookId));
+
+        Mockito.verify(loanRepository, atLeastOnce()).getLoans();
+    }
+
     // TODO: Implement
     @Disabled
     @Test
-    void testGetLoansByUserId_ForExistingUserId() {
+    void testIsBookLoanedToUser_NonExistingBook() {
     }
 
+    // TODO: Implement
+    @Disabled
+    @Test
+    void testIsBookLoanedToUser_NonLoanedBook() {
+    }
+
+    // TODO: Implement
+    @Disabled
+    @Test
+    void testIsBookLoanedToUser_BookLoanedToOtherUser() {
+    }
 }
