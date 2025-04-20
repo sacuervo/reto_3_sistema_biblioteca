@@ -9,10 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.when;
+
 import org.mockito.MockitoAnnotations;
 
 public class LibraryServiceTest {
@@ -179,17 +182,44 @@ public class LibraryServiceTest {
     }
 
     // TODO: Implement
+    // @Disabled
     @Test
     void testGetLoansByUserId_ForUnexistingUserId() {
 
+        String userId = "001";
+        String userName = "Santiago";
+        String bookId = "001";
+        String bookName = "Meditations";
+        String bookAuthor = "Marcus Aurelius";
+
+        // Create user in libraryService list
+        libraryService.addUser(userId, userName);
+
+        // Create stubs
+        List<Loan> stubLoans = new ArrayList<>();
+        User stubUser = new User(userId, userName);
+        Book stubBook = new Book(bookId, bookName, bookAuthor);
+
+        Loan stubLoan = new Loan(stubUser, stubBook);
+        stubLoans.add(stubLoan);
+
+        String nonExistingUserId = "002";
+
+        when(loanRepository.getLoans()).thenReturn(stubLoans);
+
+        assertThrows(IllegalArgumentException.class, () -> libraryService.getLoansByUserId(nonExistingUserId));
+
+        Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
 
     // TODO: Implement
+    @Disabled
     @Test
     void testGetLoansByUserId_ForNonExistingLoansForExistingUserId() {
     }
 
     // TODO: Implement
+    @Disabled
     @Test
     void testGetLoansByUserId_ForExistingUserId() {
     }
