@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LibraryService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reto_3_sistema_biblioteca</a> &gt; <a href="index.source.html" class="el_package">me.santiagocuervo</a> &gt; <span class="el_source">LibraryService.java</span></div><h1>LibraryService.java</h1><pre class="source lang-java linenums">package me.santiagocuervo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+public class LibraryService {
+
+    private final BookRepository bookRepository;
+    private final LoanRepository loanRepository;
+    private List&lt;User&gt; users;
+
+<span class="fc" id="L13">    public LibraryService(BookRepository bookRepository, LoanRepository loanRepository) {</span>
+<span class="fc" id="L14">        this.bookRepository = bookRepository;</span>
+<span class="fc" id="L15">        this.loanRepository = loanRepository;</span>
+<span class="fc" id="L16">        users = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L17">    }</span>
+
+    public void addBook(String id, String title, String author) {
+<span class="fc" id="L20">        bookRepository.saveBook(new Book(id, title, author));</span>
+<span class="fc" id="L21">    }</span>
+
+    public Book getBookById(String id) {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (bookRepository.findById(id) == null) {</span>
+<span class="fc" id="L25">            throw new NoSuchElementException(String.format(&quot;Book with ID '%s' not found&quot;, id));</span>
+        }
+
+<span class="fc" id="L28">        return bookRepository.findById(id);</span>
+    }
+
+    public void addUser(String id, String nombre) {
+<span class="fc" id="L32">        users.add(new User(id, nombre));</span>
+<span class="fc" id="L33">    }</span>
+
+    public void borrowBook(String userId, String bookId) throws LoanException {
+
+        // Verify book existence - NoSuchElementException
+<span class="fc" id="L38">        Book loanBook = null;</span>
+
+        try {
+<span class="fc" id="L41">            loanBook = getBookById(bookId);</span>
+<span class="fc" id="L42">        } catch (NoSuchElementException ex) {</span>
+<span class="fc" id="L43">            throw new NoSuchElementException(String.format(&quot;Error loaning book: [%s]&quot;, ex.getMessage()));</span>
+<span class="fc" id="L44">        }</span>
+
+        // Verify book availability - LoanException
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (bookRepository.findById(bookId).isBorrowed()) {</span>
+<span class="fc" id="L48">            throw new LoanException(String.format(&quot;Error loaning book: [Book with ID '%s' is already taken]&quot;, bookId));</span>
+        }
+
+        // Verify user existence - IllegalArgumentException
+<span class="fc" id="L52">        User loanUser = null;</span>
+
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        for (User user : users) {</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (user.getId().equalsIgnoreCase(userId.trim())) {</span>
+<span class="fc" id="L56">                loanUser = user;</span>
+            }
+<span class="fc" id="L58">        }</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (loanUser == null) {</span>
+<span class="fc" id="L61">            throw new IllegalArgumentException(</span>
+<span class="fc" id="L62">                    String.format(&quot;Error loaning book: [User with ID '%s' not found]&quot;, userId));</span>
+        }
+
+<span class="fc" id="L65">        loanRepository.save(new Loan(loanUser, loanBook));</span>
+
+<span class="fc" id="L67">    }</span>
+
+    public List&lt;Loan&gt; getLoansByUserId(String userId) throws LoanException {
+
+        // Return list
+<span class="fc" id="L72">        List&lt;Loan&gt; loanList = new ArrayList&lt;&gt;();</span>
+
+        // Finish execution if there are no loans yet
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (loanRepository.getLoans().isEmpty()) {</span>
+<span class="fc" id="L76">            throw new LoanException(&quot;No loans have been added yet&quot;);</span>
+        }
+
+        // Verify user existence
+<span class="fc" id="L80">        User loanUser = null;</span>
+
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (User user : users) {</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            if (user.getId().equalsIgnoreCase(userId.trim())) {</span>
+<span class="fc" id="L84">                loanUser = user;</span>
+            }
+<span class="fc" id="L86">        }</span>
+
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (loanUser == null) {</span>
+<span class="fc" id="L89">            throw new IllegalArgumentException(String.format(&quot;User with ID '%s' not found&quot;, userId));</span>
+        }
+
+        // Loop through loan list
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (Loan loan : loanRepository.getLoans()) {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (loan.getUser().getId().equals(userId)) {</span>
+<span class="fc" id="L95">                loanList.add(loan);</span>
+            }
+<span class="fc" id="L97">        }</span>
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (loanList.isEmpty()) {</span>
+<span class="fc" id="L100">            throw new NoSuchElementException(String.format(&quot;User with ID '%s' has no loans&quot;, userId));</span>
+        }
+
+<span class="fc" id="L103">        return loanList;</span>
+
+    }
+
+    // TODO: Test
+    public boolean isBookLoanedToUser(String userId, String bookId) throws LoanException {
+
+        // Check if book exists and if it's loaned
+<span class="fc" id="L111">        Book loanBook = getBookById(bookId);</span>
+
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (!loanBook.isBorrowed()) {</span>
+<span class="fc" id="L114">            throw new LoanException(String.format(&quot;Book with ID '%s' hasn't been loaned&quot;, bookId));</span>
+        }
+
+        // Check if book loan matches user
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        for (Loan loan : loanRepository.getLoans()) {</span>
+<span class="fc bfc" id="L119" title="All 4 branches covered.">            if (loan.getBook().equals(loanBook) &amp;&amp; loan.getUser().getId().equalsIgnoreCase(userId)) {</span>
+<span class="fc" id="L120">                return true;</span>
+            }
+<span class="fc" id="L122">        }</span>
+
+<span class="fc" id="L124">        return false;</span>
+
+    }
+
+    public List&lt;User&gt; getUsers() {
+<span class="fc" id="L129">        return users;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
