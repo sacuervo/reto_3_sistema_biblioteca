@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -87,6 +86,24 @@ public class LibraryServiceTest {
     }
 
     @Test
+    void testBorrowBook_SuccessfullyIgnoringIdCase() throws LoanException {
+        String userId = "AaBb123";
+        String bookId = "5678";
+
+        libraryService.addUser(userId, "Santiago");
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius", false);
+
+        Mockito.when(bookRepository.findById(bookId))
+                .thenReturn(stubBook);
+
+        libraryService.borrowBook("aabb123", bookId);
+
+        Mockito.verify(bookRepository, Mockito.atLeastOnce()).findById(bookId);
+        Mockito.verify(loanRepository).save(Mockito.any(Loan.class));
+
+    }
+
+    @Test
     void testBorrowNonExistingBook() {
         String userId = "1234";
         String bookId = "5678";
@@ -117,6 +134,9 @@ public class LibraryServiceTest {
         String userId = "001";
         String bookId = "001";
 
+        // Add user with different ID to initiate ArrayList loop
+        libraryService.addUser("002", "Santiago");
+
         Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius");
 
         Mockito.when(bookRepository.findById(bookId))
@@ -127,6 +147,20 @@ public class LibraryServiceTest {
         Mockito.verify(bookRepository, Mockito.atLeastOnce()).findById(bookId);
         assert !stubBook.isBorrowed();
 
+    }
+
+    @Test
+    void testBorrowBook_UserNotFound() {
+        String userId = "nonexistent";
+        String bookId = "001";
+
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius", false);
+
+        Mockito.when(bookRepository.findById(bookId)).thenReturn(stubBook);
+
+        assertThrows(IllegalArgumentException.class, () -> libraryService.borrowBook(userId, bookId));
+
+        Mockito.verify(bookRepository, atLeastOnce()).findById(bookId);
     }
 
     @Test
@@ -314,4 +348,27 @@ public class LibraryServiceTest {
 
         Mockito.verify(loanRepository, atLeastOnce()).getLoans();
     }
+
+    @Test
+    void testIsBookLoanedToUser_UserHasDifferentBookLoaned() throws LoanException {
+        String userId = "001";
+        String bookId = "001";
+        String otherLoanedBookId = "002";
+
+        Book stubBook = new Book(bookId, "Meditations", "Marcus Aurelius", true);
+        Book stubOtherLoanedBook = new Book(otherLoanedBookId, "Animal Farm", "George Orwell", true);
+
+        when(bookRepository.findById(otherLoanedBookId)).thenReturn(stubOtherLoanedBook);
+
+        User stubLoanUser = new User(userId, "Santiago");
+        Loan stubLoan = new Loan(stubLoanUser, stubBook);
+
+        List<Loan> stubLoanList = new ArrayList<>();
+        stubLoanList.add(stubLoan);
+
+        when(loanRepository.getLoans()).thenReturn(stubLoanList);
+
+        assertEquals(false, libraryService.isBookLoanedToUser(userId, otherLoanedBookId));
+    }
+
 }
