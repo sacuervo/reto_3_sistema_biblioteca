@@ -31,6 +31,44 @@ El proyecto está dividido en las siguientes capas y componentes principales:
 
 - **LoanException**: Excepción personalizada que extiende `Exception` para manejar errores relacionados con los préstamos.
 
+---
+
+## Sistema de Logs
+
+Se implementó un sistema de logs utilizando las siguientes librerías:
+
+- **SLF4J**: Como fachada de logging para una abstracción de alto nivel.
+- **Log4j2**: Como implementación de logging para el registro de eventos y errores.
+
+### Configuración
+
+La configuración de Log4j2 se encuentra en el archivo `src/main/resources/log4j2.xml`, donde se definen:
+
+- **Appenders**: Para la salida de logs a la consola y archivos.
+- **Loggers**: Con niveles específicos para diferentes paquetes.
+- **Root Logger**: Configuración global del nivel de log.
+
+### Uso en el Código
+
+Los logs se implementan en las clases principales del sistema:
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class LibraryService {
+    private static final Logger logger = LoggerFactory.getLogger(LibraryService.class);
+
+    // Métodos con logs
+    public void borrowBook(int userId, int bookId) throws LoanException {
+        logger.info("Attempting to borrow book with ID {} for user {}", bookId, userId);
+        // ...implementación
+    }
+}
+```
+
+---
+
 ## Pruebas Unitarias
 
 Se implementaron pruebas unitarias para la clase `LibraryService` utilizando las siguientes herramientas:
@@ -44,6 +82,8 @@ Se implementaron pruebas unitarias para la clase `LibraryService` utilizando las
 - Se crearon pruebas unitarias únicamente para la clase `LibraryService`.
 - No se implementaron pruebas unitarias para las capas de repositorio ni para los modelos.
 - Las pruebas incluyen casos de éxito y manejo de excepciones, como usuarios no encontrados, libros no disponibles o préstamos inexistentes.
+
+---
 
 ## Ejecución del Proyecto
 
