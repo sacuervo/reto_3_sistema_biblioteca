@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <!-- Configuración de los appenders -->
+    <Appenders>
+        <!-- Appender para loggear en la consola -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <!-- Appender para loggear en un archivo con rotación -->
+        <RollingFile name="RollingFileAppender" fileName="logs/app.log" filePattern="logs/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <!-- Rotar el archivo diariamente -->
+                <TimeBasedTriggeringPolicy />
+                <!-- Rotar cuando el archivo alcance un tamaño de 10 MB -->
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+    </Appenders>
+    <!-- Configuración de los loggers -->
+    <Loggers>
+        <!-- Logger raíz (se aplica a toda la aplicación) -->
+        <Root level="debug">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="RollingFileAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
