@@ -1,0 +1,162 @@
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.borrowBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: userId 001, bookId 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book exists
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book availability...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Error loaning book: [Book with ID 001 is already taken]
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 001, title Meditations, author Marcus Aurelius
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book saved
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 1234, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Retrieving users...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Retrieving users...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Retrieving users...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 002, bookId 001
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book has been loaned...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is currently loaned
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book loan matches user...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book loan doesn't match user
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getLoansByUserId()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 001
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - No loans have been added yet
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 001, bookId 001
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Book with ID 001 not found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 001, bookId 001
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book has been loaned...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Book with ID 001 hasn't been loaned
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.borrowBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: userId nonexistent, bookId 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book exists
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book availability...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is available for loan
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Error loaning book: [User with ID nonexistent not found]
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 001, bookId 001
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book has been loaned...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is currently loaned
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book loan matches user...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book loan matches user
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 001, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getLoansByUserId()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 002
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - User with ID 002 not found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id AaBb123, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.borrowBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: userId aabb123, bookId 5678
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 5678
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book exists
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book availability...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is available for loan
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User was found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book loaned successfully
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 001, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 002, name Andrés
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getLoansByUserId()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 002
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user loans...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - User with ID 002 has no loans
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 1234, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.borrowBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: userId 1234, bookId 5678
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 5678
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book exists
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book availability...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is available for loan
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User was found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book loaned successfully
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.isBookLoanedToUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 001, bookId 002
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 002
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book has been loaned...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is currently loaned
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying that book loan matches user...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book loan doesn't match user
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.borrowBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: userId 1234, bookId 5678
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 5678
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Book with ID 5678 not found
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Error loaning book: [Book with ID '5678' not found]
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 002, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.borrowBook()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: userId 001, bookId 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getBookById()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: id 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book existence...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - A book has been found
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book exists
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying book availability...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Book is available for loan
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] WARN  me.santiagocuervo.LibraryService - Error loaning book: [User with ID 001 not found]
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.addUser()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Arguments: id 001, name Santiago
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - User added
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Entering LibraryService.getLoansByUserId()
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Argument: userId 001
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user existence...
+2025-04-22 12:37:51 [main] DEBUG me.santiagocuervo.LibraryService - Verifying user loans...
+2025-04-22 12:37:51 [main] INFO  me.santiagocuervo.LibraryService - Loan has been found
